@@ -36,7 +36,7 @@ const updateUserInfo = catchAsync(async (req, res) => {
 
 const changePassword = catchAsync(async (req, res) => {
   const user = await userService.changePassword(req.params.userId, req.body);
-  res.send(user);
+  res.status(httpStatus.OK).send(user);
 });
 
 const deleteUser = catchAsync(async (req, res) => {
@@ -51,5 +51,5 @@ module.exports = {
   updateUser,
   deleteUser,
   updateUserInfo,
-  changePassword
+  changePassword,
 };

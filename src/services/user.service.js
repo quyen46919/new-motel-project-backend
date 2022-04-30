@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
-const bcrypt = require('bcryptjs');
 
 /**
  * Create a user
@@ -10,7 +9,7 @@ const bcrypt = require('bcryptjs');
  */
 const createUser = async (userBody) => {
   if (await User.isEmailTaken(userBody.email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Địa chỉ email này đã tồn tại');
   }
   return User.create(userBody);
 };
@@ -71,29 +70,43 @@ const updateUserInfo = async (userId, updateBody) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Tài khoản không tồn tại');
   }
+  if (updateBody.oldPassword) {
+    // update password
+    if (!(await user.isPasswordMatch(updateBody.oldPassword))) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, 'Mật khẩu sai');
+    }
+  } else {
+    // update user info
+    // eslint-disable-next-line no-param-reassign
+    delete updateBody.password;
+  }
+
+  // eslint-disable-next-line no-param-reassign
+  delete updateBody.oldPassword;
+
   Object.assign(user, updateBody);
   await user.save();
   return user;
 };
 
-const changePassword = async (userId, updateBody) => {
-  const user = await getUserById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Tài khoản không tồn tại');
-  }
+// const changePassword = async (userId, updateBody) => {
+//   const user = await getUserById(userId);
+//   if (!user) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Tài khoản không tồn tại');
+//   }
 
-  const validPassword = await bcrypt.compare(updateBody.oldPassword, user.password);
-  if (!validPassword) throw new ApiError(httpStatus.NOT_FOUND, 'Mật khẩu sai');
+//   const validPassword = await bcrypt.compare(updateBody.oldPassword, user.password);
+//   if (!validPassword) throw new ApiError(httpStatus.NOT_FOUND, 'Mật khẩu sai');
 
-  if (updateBody.password.localeCompare(updateBody.confirmNewPassword)) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Xác nhận mật khẩu mới không trùng khớp!');
-  }
+//   // if (updateBody.password.localeCompare(updateBody.confirmNewPassword)) {
+//   //   throw new ApiError(httpStatus.NOT_FOUND, 'Xác nhận mật khẩu mới không trùng khớp!');
+//   // }
 
-  const newPassword = { password: updateBody.password}
-  Object.assign(user, newPassword);
-  await user.save();
-  return user;
-};
+//   const newPassword = { password: updateBody.password };
+//   Object.assign(user, newPassword);
+//   await user.save();
+//   return user;
+// };
 
 /**
  * Delete user by id
@@ -117,5 +130,5 @@ module.exports = {
   updateUserById,
   updateUserInfo,
   deleteUserById,
-  changePassword
+  // changePassword,
 };

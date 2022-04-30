@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { password, objectId } = require('./custom.validation');
+const { objectId } = require('./custom.validation');
 
 const postMotel = {
   body: Joi.object().keys({
@@ -7,47 +7,40 @@ const postMotel = {
     bossName: Joi.string().min(6).max(255).required(),
     bossPhone: Joi.string().min(9).max(10).required(),
     address: Joi.string().min(6).max(255).required(),
-    prices: Joi.number().min(0).max(20000000).required(),
-    pricePerPerson: Joi.number().min(0).max(20000000),
+    price: Joi.number().min(0).max(20000000).required(),
     acreage: Joi.number().min(1).max(255).required(),
     mezzanine: Joi.number().min(0).max(255).required(),
     maxPeople: Joi.number().min(1).max(20).required(),
-    numberPeopleAreNeeded:  Joi.number().min(1).max(20),
-    elecPrices:  Joi.number().min(0).max(100000).required(),
-    waterPrices:  Joi.number().min(0).max(1000000).required(),
+    elecPrice: Joi.number().min(0).max(100000).required(),
+    waterPrice: Joi.string().min(0).max(255).required(),
+    renterRequire: Joi.string().min(0).max(255).required(),
     // sameRoom: Joi.number().min(0).max(200),
     description: Joi.string().max(1024).allow(null, ''),
-    mergeDescription: Joi.string().max(1024).allow(null, ''),
-    deposit: Joi.string().max(255),
     formality: Joi.string().required(),
     category: Joi.string().required(),
 
-    checkedCarPark: Joi.boolean(),
-    checkedFan: Joi.boolean(),
-    checkedConditioner: Joi.boolean(),
-    checkedCamera: Joi.boolean(),
-    checkedGarbageBin: Joi.boolean(),
-    checkedKitchen: Joi.boolean(),
-    checkedToilet: Joi.boolean(),
-    checkedWifi: Joi.boolean(),
-    checkedCupboard: Joi.boolean(),
-    checkedDryingGround: Joi.boolean(),
-    checkedWaterHeater: Joi.boolean(),
-    checkedAlarm: Joi.boolean(),
-    checkedBed: Joi.boolean(),
-    checkedFridge: Joi.boolean(),
-    checkedHospital: Joi.boolean(),
-    checkedTienSon: Joi.boolean(),
-    checkedMarket: Joi.boolean(),
-    checkedSupermarket: Joi.boolean(),
-    checkedWashingMachine: Joi.boolean(),
-    checkedPet: Joi.boolean(),
-    
-    nearSchool: Joi.string().required(),
-    motelImages: Joi.array().required(),
+    checkCarPark: Joi.boolean(),
+    checkFan: Joi.boolean(),
+    checkAirConditioner: Joi.boolean(),
+    checkCamera: Joi.boolean(),
+    checkFreedom: Joi.boolean(),
+    checkPet: Joi.boolean(),
+    checkKitchen: Joi.boolean(),
+    checkToilet: Joi.boolean(),
+    checkFridge: Joi.boolean(),
+    checkWashingMachine: Joi.boolean(),
+    checkBathroom: Joi.boolean(),
+    checkWaterHeater: Joi.boolean(),
+    checkWifi: Joi.boolean(),
+    checkTerrace: Joi.boolean(),
+    checkDryingPlace: Joi.boolean(),
+    checkBed: Joi.boolean(),
+    checkBoard: Joi.boolean(),
+
+    imageList: Joi.array().required(),
     location: Joi.object({
-      latitude: Joi.string().required(),
-      longitude: Joi.string().required(),
+      lat: Joi.number().required(),
+      lng: Joi.number().required(),
     }),
   }),
 };
@@ -77,7 +70,8 @@ const queryMotels = {
     checkedMarket: Joi.boolean(),
     checkedSupermarket: Joi.boolean(),
     checkedWashingMachine: Joi.boolean(),
-
+    checkBed: Joi.boolean(),
+    checkBoard: Joi.boolean(),
 
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
@@ -103,11 +97,22 @@ const updateMotelStatus = {
   }),
   body: Joi.object()
     .keys({
-      status: Joi.string().required(),
-      statusMessage: Joi.string().required(),
-      _destroy: Joi.boolean().required(),
+      status: Joi.string().valid('Đang xử lí', 'Đã duyệt', 'Đã từ chối phê duyệt').required(),
+      statusMessage: Joi.when('status', {
+        is: Joi.string().valid('Đã từ chối phê duyệt'),
+        then: Joi.string().min(5).required(),
+        otherwise: Joi.string().allow(''),
+      }),
+      visibility: Joi.string().valid('Đang hiển thị', 'Đã ẩn đi').required(),
+      visibilityMessage: Joi.when('visibility', {
+        is: Joi.string().valid('Đã ẩn đi'),
+        then: Joi.string().min(5).required(),
+        otherwise: Joi.string().allow(''),
+      }).allow(null),
+      expireAt: Joi.date().allow(''),
+      _destroy: Joi.boolean().default(false),
     })
-    .min(3),
+    .min(1),
 };
 
 const updateMotelInfo = {
@@ -140,13 +145,12 @@ const deleteMotel = {
 };
 
 const predictDistance = {
-  body: Joi.object()
-    .keys({
-      location: Joi.object().keys({
-        longitude: Joi.number().required(),
-        latitude: Joi.number().required()
-      }),
+  body: Joi.object().keys({
+    location: Joi.object().keys({
+      longitude: Joi.number().required(),
+      latitude: Joi.number().required(),
     }),
+  }),
 };
 
 module.exports = {
@@ -157,5 +161,5 @@ module.exports = {
   updateMotelStatus,
   updateMotelInfo,
   getMotelsByUserId,
-  predictDistance
+  predictDistance,
 };

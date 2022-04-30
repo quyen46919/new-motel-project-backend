@@ -1,163 +1,151 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const locationSchema = new mongoose.Schema({
-  latitude: {
-    type: String,
-    required: true,
-  },
-  longitude: {
-    type: String,
-    required: true,
-  },
+const CounterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 },
 });
+const counter = mongoose.model('counter', CounterSchema);
 
 const motelSchema = new mongoose.Schema({
   createUserId: {
-    type: String,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
+  },
+  counter: {
+    type: Number,
+    default: 0,
   },
   category: {
     type: String,
     required: true,
   },
-  homeDetails: {
-    bossName: {
-      type: String,
-      required: true,
-      min: 6,
-      max: 255,
-    },
-    bossPhone: {
-      type: String,
-      required: true,
-      max: 10,
-      min: 9,
-    },
-    address: {
-      type: String,
-      required: true,
-      min: 6,
-      max: 255,
-    },
-    prices: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    pricePerPerson: {
-      type: Number,
-      min: 0,
-    },
-    acreage: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    mezzanine: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    maxPeople: {
-      type: Number,
-      required: true,
-      min: 1,
-      max: 15,
-    },
-    numberPeopleAreNeeded: {
-      type: Number,
-      min: 1,
-      default: 1,
-    },
-    elecPrices: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    waterPrices: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    // sameRoom: {
-    //   type: Number,
-    //   min: 0,
-    // },
-    deposit: {
-      type: String,
-      min: 0,
-      max: 255,
-      default: 'Không có yêu cầu đặt cọc',
-    },
-    description: {
-      type: String,
-      min: 6,
-      max: 1024,
-      required: true,
-    },
-    mergeDescription: {
-      type: String,
-      max: 1024,
-    },
-    formality: {
-      type: String,
-      required: true,
-    },
+  renterRequire: {
+    type: String,
+    required: true,
   },
-  homeUtilities: {
-    nearSchool: {
-      type: String,
-      min: 0,
-      max: 255,
-    },
-    checkedCarPark: Boolean,
-    checkedFan: Boolean,
-    checkedConditioner: Boolean,
-    checkedCamera: Boolean,
-    checkedGarbageBin: Boolean,
-    checkedKitchen: Boolean,
-    checkedToilet: Boolean,
-    checkedWifi: Boolean,
-    checkedCupboard: Boolean,
-    checkedDryingGround: Boolean,
-    checkedWaterHeater: Boolean,
-    checkedMore: Boolean,
-    checkedAlarm: Boolean,
-    checkedBathub: Boolean,
-    checkedBed: Boolean,
-    checkedCool: Boolean,
-    checkedFridge: Boolean,
-    checkedHospital: Boolean,
-    checkedTienSon: Boolean,
-    checkedMarket: Boolean,
-    checkedSupermarket: Boolean,
-    checkedWashingMachine: Boolean,
-    checkedPet: Boolean,
+  bossName: {
+    type: String,
+    required: true,
+    min: 6,
+    max: 255,
   },
-  motelImages: [],
+  bossPhone: {
+    type: String,
+    required: true,
+    max: 10,
+    min: 9,
+  },
+  address: {
+    type: String,
+    required: true,
+    min: 6,
+    max: 255,
+  },
+  price: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  acreage: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  mezzanine: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  maxPeople: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 6,
+  },
+  elecPrice: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  waterPrice: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    max: 1024,
+    default: '',
+  },
+  formality: {
+    type: String,
+    required: true,
+  },
+  nearSchool: {
+    type: Array,
+    default: [],
+  },
+  checkCarPark: Boolean,
+  checkFan: Boolean,
+  checkAirConditioner: Boolean,
+  checkCamera: Boolean,
+  checkFreedom: Boolean,
+  checkPet: Boolean,
+  checkKitchen: Boolean,
+  checkToilet: Boolean,
+  checkFridge: Boolean,
+  checkWashingMachine: Boolean,
+  checkBathroom: Boolean,
+  checkWaterHeater: Boolean,
+  checkWifi: Boolean,
+  checkTerrace: Boolean,
+  checkDryingPlace: Boolean,
+  checkBed: Boolean,
+  checkBoard: Boolean,
+  imageList: [],
   location: {
-    latitude: {
-      type: String,
+    lat: {
+      type: Number,
       required: true,
     },
-    longitude: {
-      type: String,
+    lng: {
+      type: Number,
       required: true,
     },
   },
-  dateCreate: {
+  expireAt: {
+    type: Date,
+    default: '',
+  },
+  createAt: {
     type: Date,
     default: Date.now(),
   },
+  updateAt: {
+    type: Date,
+    default: '',
+  },
+  tags: {
+    type: Array,
+    default: [],
+  },
   status: {
     type: String,
+    enum: ['Đang xử lí', 'Đã duyệt', 'Đã từ chối phê duyệt'],
     default: 'Đang xử lí',
   },
   statusMessage: {
     type: String,
     default: 'Yêu cầu của bạn đang chờ xác thực',
-    min: 0,
+  },
+  visibility: {
+    type: String,
+    enum: ['Đang hiển thị', 'Đã ẩn đi'],
+    default: 'Đang hiển thị',
+  },
+  visibilityMessage: {
+    type: String,
+    default: '',
   },
   _destroy: {
     type: Boolean,
@@ -170,11 +158,11 @@ motelSchema.plugin(paginate);
 
 motelSchema.statics.isMotelTaken = async function (category, bossName, bossPhone, address, price) {
   const motel = await this.findOne({
-    "category": category,
-    "homeDetails.bossName": bossName,
-    "homeDetails.bossPhone": bossPhone,
-    "homeDetails.address": address,
-    "homeDetails.prices": price,
+    category,
+    bossName,
+    bossPhone,
+    address,
+    price,
   });
   return !!motel;
 };
@@ -183,23 +171,31 @@ motelSchema.statics.isValidLocation = async function (latitude, longitude) {
   const motel = await this.findOne({
     $and: [
       {
-        "location.latitude": latitude,
+        'location.lat': latitude,
       },
       {
-        "location.longitude": longitude,
+        'location.lng': longitude,
       },
-    ]
+    ],
   });
   return !!motel;
 };
 
 motelSchema.statics.isValidMotel = async function (ownerId, motelId) {
   const motel = await this.findOne({
-    "_id": motelId,
-    "createUserId": ownerId
+    _id: motelId,
+    createUserId: ownerId,
   });
   return motel;
 };
 
+motelSchema.pre('save', function (next) {
+  const doc = this;
+  counter.findByIdAndUpdate({ _id: 'motelId' }, { $inc: { seq: 1 } }, { new: true, upsert: true }, function (error, count) {
+    if (error) return next(error);
+    doc.counter = count.seq;
+    next();
+  });
+});
 
 module.exports = mongoose.model('Motel', motelSchema);

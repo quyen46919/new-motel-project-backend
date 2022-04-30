@@ -6,7 +6,7 @@ const { Motel } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { distanceSampleData } = require('../utils/predictDistance');
 
-const handler = tf.io.fileSystem('./predict-distance-model/model.json');
+const handler = tf.io.fileSystem('./predict-distance-model2/model.json');
 
 /**
  * Create a motel
@@ -14,87 +14,86 @@ const handler = tf.io.fileSystem('./predict-distance-model/model.json');
  * @returns {Promise<Motel>}
  */
 const postMotel = async (motelBody) => {
-  if (
-    await Motel.isMotelTaken(
-      motelBody.category,
-      motelBody.bossName,
-      motelBody.bossPhone,
-      motelBody.address,
-      motelBody.prices
-    )
-  ) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Trọ này đã tồn tại!');
-  }
+  return Motel.create(motelBody);
+  // if (
+  //   await Motel.isMotelTaken(
+  //     motelBody.category,
+  //     motelBody.bossName,
+  //     motelBody.bossPhone,
+  //     motelBody.address,
+  //     motelBody.prices
+  //   )
+  // ) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Trọ này đã tồn tại!');
+  // }
 
-  const motel = {
-    createUserId: motelBody.createUserId,
-    category: motelBody.category,
-    homeDetails: {
-      bossName: motelBody.bossName,
-      bossPhone: motelBody.bossPhone,
-      address: motelBody.address,
-      prices: motelBody.prices,
-      acreage: motelBody.acreage,
-      mezzanine: motelBody.mezzanine,
-      deposit: motelBody.deposit,
-      formality: motelBody.formality,
-      elecPrices: motelBody.elecPrices,
-      waterPrices: motelBody.waterPrices,
-      maxPeople: motelBody.maxPeople,
-      description: motelBody.description,
-    },
-    homeUtilities: {
-      checkedCarPark: motelBody.checkedCarPark,
-      checkedFan: motelBody.checkedFan,
-      checkedConditioner: motelBody.checkedConditioner,
-      checkedCamera: motelBody.checkedCamera,
-      checkedGarbageBin: motelBody.checkedGarbageBin,
-      checkedKitchen: motelBody.checkedKitchen,
-      checkedToilet: motelBody.checkedToilet,
-      checkedWifi: motelBody.checkedWifi,
-      checkedCupboard: motelBody.checkedCupboard,
-      checkedDryingGround: motelBody.checkedDryingGround,
-      checkedWaterHeater: motelBody.checkedWaterHeater,
-      checkedAlarm: motelBody.checkedAlarm,
-      checkedBed: motelBody.checkedBed,
-      checkedFridge: motelBody.checkedFridge,
-      checkedTienSon: motelBody.checkedTienSon,
-      checkedMarket: motelBody.checkedMarket,
-      checkedSupermarket: motelBody.checkedSupermarket,
-      checkedWashingMachine: motelBody.checkedWashingMachine,
-      checkedPet: motelBody.checkedPet,
-      nearSchool: motelBody.nearSchool,
-      checkedHospital: motelBody.checkedHospital,
-    },
-    motelImages: motelBody.motelImages,
-    location: motelBody.location,
-  };
+  // const motel = {
+  //   createUserId: motelBody.createUserId,
+  //   category: motelBody.category,
+  //   homeDetails: {
+  //     bossName: motelBody.bossName,
+  //     bossPhone: motelBody.bossPhone,
+  //     address: motelBody.address,
+  //     prices: motelBody.prices,
+  //     acreage: motelBody.acreage,
+  //     mezzanine: motelBody.mezzanine,
+  //     deposit: motelBody.deposit,
+  //     formality: motelBody.formality,
+  //     elecPrices: motelBody.elecPrices,
+  //     waterPrices: motelBody.waterPrices,
+  //     maxPeople: motelBody.maxPeople,
+  //     description: motelBody.description,
+  //   },
+  //   homeUtilities: {
+  //     checkedCarPark: motelBody.checkedCarPark,
+  //     checkedFan: motelBody.checkedFan,
+  //     checkedConditioner: motelBody.checkedConditioner,
+  //     checkedCamera: motelBody.checkedCamera,
+  //     checkedGarbageBin: motelBody.checkedGarbageBin,
+  //     checkedKitchen: motelBody.checkedKitchen,
+  //     checkedToilet: motelBody.checkedToilet,
+  //     checkedWifi: motelBody.checkedWifi,
+  //     checkedCupboard: motelBody.checkedCupboard,
+  //     checkedDryingGround: motelBody.checkedDryingGround,
+  //     checkedWaterHeater: motelBody.checkedWaterHeater,
+  //     checkedAlarm: motelBody.checkedAlarm,
+  //     checkedBed: motelBody.checkedBed,
+  //     checkedFridge: motelBody.checkedFridge,
+  //     checkedTienSon: motelBody.checkedTienSon,
+  //     checkedMarket: motelBody.checkedMarket,
+  //     checkedSupermarket: motelBody.checkedSupermarket,
+  //     checkedWashingMachine: motelBody.checkedWashingMachine,
+  //     checkedPet: motelBody.checkedPet,
+  //     nearSchool: motelBody.nearSchool,
+  //     checkedHospital: motelBody.checkedHospital,
+  //   },
+  //   motelImages: motelBody.motelImages,
+  //   location: motelBody.location,
+  // };
 
-  switch (String(motelBody.category)) {
-    case 'Ghép trọ':
-      if (!motelBody.pricePerPerson || !motelBody.numberPeopleAreNeeded || !motelBody.mergeDescription) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Thiếu thông tin cần thiết để đăng tin ghép trọ');
-      }
+  // switch (String(motelBody.category)) {
+  //   case 'Ghép trọ':
+  //     if (!motelBody.pricePerPerson || !motelBody.numberPeopleAreNeeded || !motelBody.mergeDescription) {
+  //       throw new ApiError(httpStatus.BAD_REQUEST, 'Thiếu thông tin cần thiết để đăng tin ghép trọ');
+  //     }
 
-      motel.homeDetails = {
-        ...motel.homeDetails,
-        pricePerPerson: motelBody.pricePerPerson,
-        numberPeopleAreNeeded: motelBody.numberPeopleAreNeeded,
-        mergeDescription: motelBody.mergeDescription,
-      };
-      break;
+  //     motel.homeDetails = {
+  //       ...motel.homeDetails,
+  //       pricePerPerson: motelBody.pricePerPerson,
+  //       numberPeopleAreNeeded: motelBody.numberPeopleAreNeeded,
+  //       mergeDescription: motelBody.mergeDescription,
+  //     };
+  //     break;
 
-    case 'Phòng trọ':
-      motelBody.homeDetails = {
-        ...motel.homeDetails,
-      };
-      break;
+  //   case 'Phòng trọ':
+  //     motelBody.homeDetails = {
+  //       ...motel.homeDetails,
+  //     };
+  //     break;
 
-    default:
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Thông tin sai!');
-  }
-
-  return Motel.create(motel);
+  //   default:
+  //     throw new ApiError(httpStatus.BAD_REQUEST, 'Thông tin sai!');
+  // }
 };
 
 /**
@@ -110,7 +109,7 @@ const queryMotels = async (filter, options) => {
   const motels = await Motel.paginate(filter, options);
 
   // fix this line in future
-  const filteredMotel = motels.results.filter((item) => item._destroy === false && item.status === 'Đang xử lí');
+  const filteredMotel = motels.results.filter((item) => item._destroy === false && item.status === 'Đã duyệt');
   const verifyMotels = {
     ...motels,
     results: filteredMotel,
@@ -118,6 +117,12 @@ const queryMotels = async (filter, options) => {
   };
 
   return verifyMotels;
+};
+
+const adminQueryMotels = async (filter, options) => {
+  const motels = await Motel.paginate(filter, options);
+
+  return motels;
 };
 
 /**
@@ -131,11 +136,22 @@ const getMotelById = async (id) => {
 
 const getMotelByPostedUserId = async (userId) => {
   const motels = Motel.find({ createUserId: mongoose.Types.ObjectId(userId) }).select({
-    'homeDetails.address': 1,
-    'homeDetails.prices': 1,
-    dateCreate: 1,
+    id: 1,
+    address: 1,
+    price: 1,
+    createAt: 1,
+    updateAt: 1,
+    expireAt: 1,
+    mezzanine: 1,
+    acreage: 1,
+    formality: 1,
+    tags: 1,
+    imageList: 1,
     status: 1,
     statusMessage: 1,
+    visibility: 1,
+    visibilityMessage: 1,
+    maxPeople: 1,
     _destroy: 1,
   });
 
@@ -160,7 +176,7 @@ const getMotelByEmail = async (email) => {
 const updateMotelById = async (motelId, updateBody) => {
   const motel = await getMotelById(motelId);
   if (!motel) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Motel not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Trọ không hợp lệ!');
   }
   // if (updateBody.email && (await Motel.isEmailTaken(updateBody.email, motelId))) {
   //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
@@ -227,7 +243,7 @@ const updateMotelInfo = async (motelId, body) => {
   return motel;
 };
 
-const predictDistance = async (inputlocation) => {
+const trainDistanceModel = () => {
   const universityNames = [
     'Đại học Đông Á - Kiến trúc Đà Nẵng',
     'Đại học Ngoại ngữ Đà Nẵng',
@@ -247,12 +263,8 @@ const predictDistance = async (inputlocation) => {
 
   // eslint-disable-next-line array-callback-return
   distanceSampleData.map((location) => {
-    locations.push((location.location.latitude + 90) * 180 + location.location.longitude);
-    // console.log(location.location.latitude);
-    // console.log(location.location.latitude + 90);
-    // console.log((location.location.latitude + 90) * 180);
-    // console.log(location.location.longitude);
-    // console.log((location.location.latitude + 90) * 180 + location.location.longitude);
+    locations.push((location.location.latitude + 9000) * 18000 + location.location.longitude);
+    // locations.push(location.location.latitude + location.location.longitude);
     universities.push(universityNames.indexOf(location.area));
   });
 
@@ -280,7 +292,7 @@ const predictDistance = async (inputlocation) => {
   model.add(hiddenLayer);
   model.add(ouputLayer);
 
-  model.save('file://./predict-distance-model');
+  // model.save('file://./predict-distance-model');
 
   model.compile({
     optimizer: tf.train.sgd(0.1),
@@ -291,29 +303,26 @@ const predictDistance = async (inputlocation) => {
   // train model
   async function train() {
     const options = {
-      epochs: 9999,
-      validationSplit: 0.3,
+      epochs: 5000,
+      validationSplit: 0.1,
       shuffle: true,
     };
     const res = await model.fit(xs, ys, options);
+    model.save('file://./predict-distance-model2');
     return res;
   }
 
   train()
     .then(() => {
-      // console.log(result.history.loss);
-
       const location = {
-        latitude: 16.0356,
-        longitude: 108.2407,
+        latitude: 16.0344,
+        longitude: 108.2113,
       };
-      // let location = {
-      //   latitude: (16.0238 - 15) / 2,
-      //   longitude: (16.0238 - 100) / 10,
-      // };
 
-      const inputTensor = tf.tensor1d([(location.latitude + 90) * 180 + location.longitude]);
+      const inputTensor = tf.tensor1d([(location.latitude + 9000) * 18000 + location.longitude]);
+      // const inputTensor = tf.tensor1d([location.latitude + location.longitude]);
       const predictRes = model.predict(inputTensor).dataSync();
+      // eslint-disable-next-line no-console
       console.log('predictRes', predictRes);
 
       // let max = predictRes.argMax().dataSync()[0];
@@ -322,26 +331,38 @@ const predictDistance = async (inputlocation) => {
       // console.log('vị trí này gần khu vực', universityNames[max]);
       return predictRes;
     })
+    // eslint-disable-next-line no-console
     .catch((err) => console.log(err));
-
-  // try {
-  //   const trainedModel = await tf.loadLayersModel(handler);
-  //   // const x = JSON.parse(trainedModel);
-
-  //   const location = {
-  //     latitude: 16.0612,
-  //     longitude: 108.2087,
-  //   };
-
-  //   const inputTensor = tf.tensor1d([(location.latitude + 90) * 180 + location.longitude]);
-  //   const predictRes = trainedModel.predict(inputTensor).dataSync();
-  //   console.log('predictRes', predictRes);
-  // } catch (err) {
-  //   console.log(err);
-  // }
 };
 
-predictDistance();
+// trainDistanceModel();
+
+const predictDistance = async () => {
+  try {
+    const trainedModel = await tf.loadLayersModel(handler);
+    // const x = JSON.parse(trainedModel);
+
+    const UDAlocation = {
+      latitude: 16.0344,
+      longitude: 108.2114,
+    };
+
+    const DuyTanLocation = {
+      latitude: 16.0637,
+      longitude: 108.2099,
+    };
+
+    const inputTensor = tf.tensor1d([(DuyTanLocation.latitude + 90) * 180 + DuyTanLocation.longitude]);
+    const predictRes = trainedModel.predict(inputTensor).dataSync();
+    // eslint-disable-next-line no-console
+    console.log('predictRes', predictRes);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+  }
+};
+
+// predictDistance();
 
 module.exports = {
   postMotel,
@@ -354,4 +375,5 @@ module.exports = {
   updateMotelInfo,
   getMotelByPostedUserId,
   predictDistance,
+  adminQueryMotels,
 };

@@ -32,9 +32,14 @@ const updateUser = {
   }),
   body: Joi.object()
     .keys({
-      email: Joi.string().email(),
       password: Joi.string().custom(password),
       name: Joi.string(),
+      gender: Joi.string(),
+      address: Joi.string(),
+      job: Joi.string(),
+      schoolId: Joi.string(),
+      dateOfBirth: Joi.date(),
+      avatar: Joi.string(),
     })
     .min(1),
 };
@@ -45,13 +50,18 @@ const updateUserInfo = {
   }),
   body: Joi.object()
     .keys({
-      name: Joi.string(),
-      gender: Joi.string(),
-      avatar: Joi.string(),
-      age: Joi.number(),
-      address: Joi.string(),
-      school: Joi.string(),
-      schoolId: Joi.string(),
+      name: Joi.string().allow(''),
+      gender: Joi.string().allow(''),
+      avatar: Joi.string().allow(''),
+      age: Joi.number().allow(''),
+      address: Joi.string().allow(''),
+      school: Joi.string().allow(''),
+      schoolId: Joi.string().allow(''),
+      job: Joi.string().allow(''),
+      dateOfBirth: Joi.date().allow(''),
+      phone: Joi.string().allow(''),
+      oldPassword: Joi.string().custom(password),
+      password: Joi.string().custom(password),
     })
     .min(1),
 };
@@ -61,12 +71,13 @@ const changePassword = {
     userId: Joi.required().custom(objectId),
   }),
   body: Joi.object()
-  .keys({
-    oldPassword: Joi.string().custom(password),
-    password: Joi.string().custom(password),
-    confirmNewPassword: Joi.string().custom(password),
-  }).min(3)
-}
+    .keys({
+      oldPassword: Joi.string().custom(password),
+      password: Joi.string().custom(password),
+      confirmNewPassword: Joi.string().custom(password),
+    })
+    .min(3),
+};
 
 const deleteUser = {
   params: Joi.object().keys({
@@ -81,5 +92,5 @@ module.exports = {
   updateUser,
   deleteUser,
   updateUserInfo,
-  changePassword
+  changePassword,
 };

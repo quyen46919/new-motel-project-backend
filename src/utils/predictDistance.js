@@ -22,85 +22,176 @@ module.exports.distanceSampleData = [
   // đại học Đông Á - Kiến trúc
   {
     location: {
-      latitude: 16.0314,
-      longitude: 108.2295,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0405,
-      longitude: 108.2209,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0362,
-      longitude: 108.2121,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0288,
-      longitude: 108.2111,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0246,
-      longitude: 108.2193,
+      latitude: 16.0338,
+      longitude: 108.221,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
       latitude: 16.0312,
-      longitude: 108.2237,
+      longitude: 108.2222,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0325,
-      longitude: 108.2165,
+      latitude: 16.0315,
+      longitude: 108.2184,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0341,
-      longitude: 108.2124,
+      latitude: 16.0306,
+      longitude: 108.2207,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0376,
-      longitude: 108.217,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.036,
-      longitude: 108.2335,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0383,
+      latitude: 16.0339,
       longitude: 108.2228,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0389,
-      longitude: 108.2134,
+      latitude: 16.0344,
+      longitude: 108.2203,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0329,
+      longitude: 108.2188,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0302,
+      longitude: 108.2245,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0308,
+      longitude: 108.2255,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0326,
+      longitude: 108.2249,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0287,
+      longitude: 108.2217,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0284,
+      longitude: 108.2198,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0315,
+      longitude: 108.2181,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0309,
+      longitude: 108.2205,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0351,
+      longitude: 108.2192,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0354,
+      longitude: 108.2229,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0334,
+      longitude: 108.2249,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0317,
+      longitude: 108.226,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0303,
+      longitude: 108.2256,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0293,
+      longitude: 108.2247,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.028,
+      longitude: 108.2235,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.029,
+      longitude: 108.2214,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0307,
+      longitude: 108.2201,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0286,
+      longitude: 108.2216,
+    },
+    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  },
+  {
+    location: {
+      latitude: 16.0284,
+      longitude: 108.2237,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
@@ -113,102 +204,508 @@ module.exports.distanceSampleData = [
   },
   {
     location: {
-      latitude: 16.0358,
-      longitude: 108.2317,
+      latitude: 16.0313,
+      longitude: 108.2261,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0381,
-      longitude: 108.2202,
+      latitude: 16.032,
+      longitude: 108.2275,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0328,
-      longitude: 108.2186,
+      latitude: 16.0312,
+      longitude: 108.227,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0345,
-      longitude: 108.216,
+      latitude: 16.03001,
+      longitude: 108.2264,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0282,
-      longitude: 108.224,
+      latitude: 16.0287,
+      longitude: 108.2259,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0325,
-      longitude: 108.228,
+      latitude: 16.0302,
+      longitude: 108.2276,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0349,
-      longitude: 108.2221,
+      latitude: 16.0303,
+      longitude: 108.2292,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0414,
-      longitude: 108.225,
+      latitude: 16.0316,
+      longitude: 108.2194,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0367,
-      longitude: 108.2291,
+      latitude: 16.0316,
+      longitude: 108.2168,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0381,
-      longitude: 108.2311,
+      latitude: 16.0305,
+      longitude: 108.2162,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
   {
     location: {
-      latitude: 16.0375,
-      longitude: 108.2154,
+      latitude: 16.0312,
+      longitude: 108.2191,
     },
     area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
   },
-  {
-    location: {
-      latitude: 16.0341,
-      longitude: 108.2198,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0322,
-      longitude: 108.2255,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
-  {
-    location: {
-      latitude: 16.0292,
-      longitude: 108.2249,
-    },
-    area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
-  },
+  // {
+  //   location: {
+  //     latitude: 16.0303,
+  //     longitude: 108.2204,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0292,
+  //     longitude: 108.2219,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.02901,
+  //     longitude: 108.2227,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.02901,
+  //     longitude: 108.2238,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0294,
+  //     longitude: 108.2249,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0285,
+  //     longitude: 108.2235,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0318,
+  //     longitude: 108.2202,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0302,
+  //     longitude: 108.2242,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03001,
+  //     longitude: 108.2251,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0289,
+  //     longitude: 108.2254,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0313,
+  //     longitude: 108.2269,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0322,
+  //     longitude: 108.2258,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0328,
+  //     longitude: 108.22701,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0341,
+  //     longitude: 108.2237,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0355,
+  //     longitude: 108.2233,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0344,
+  //     longitude: 108.2228,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0342,
+  //     longitude: 108.2248,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03501,
+  //     longitude: 108.2258,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0371,
+  //     longitude: 108.2226,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0376,
+  //     longitude: 108.2208,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0369,
+  //     longitude: 108.21801,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0341,
+  //     longitude: 108.21901,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0345,
+  //     longitude: 108.2203,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0333,
+  //     longitude: 108.21901,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03201,
+  //     longitude: 108.2182,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0329,
+  //     longitude: 108.2197,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0334,
+  //     longitude: 108.2208,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0346,
+  //     longitude: 108.2198,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0343,
+  //     longitude: 108.2207,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0338,
+  //     longitude: 108.2216,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0349,
+  //     longitude: 108.2216,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0355,
+  //     longitude: 108.22101,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0354,
+  //     longitude: 108.2222,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0341,
+  //     longitude: 108.2237,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0332,
+  //     longitude: 108.2196,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0338,
+  //     longitude: 108.2202,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0342,
+  //     longitude: 108.2212,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0336,
+  //     longitude: 108.2225,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03201,
+  //     longitude: 108.2248,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03101,
+  //     longitude: 108.2255,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0316,
+  //     longitude: 108.2236,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0326,
+  //     longitude: 108.2236,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03201,
+  //     longitude: 108.2246,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0332,
+  //     longitude: 108.2238,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0335,
+  //     longitude: 108.22301,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0335,
+  //     longitude: 108.2221,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0339,
+  //     longitude: 108.2205,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0316,
+  //     longitude: 108.2201,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.03101,
+  //     longitude: 108.2207,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0306,
+  //     longitude: 108.2213,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0303,
+  //     longitude: 108.2223,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0292,
+  //     longitude: 108.2212,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0301,
+  //     longitude: 108.2222,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0303,
+  //     longitude: 108.2229,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0299,
+  //     longitude: 108.2208,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0336,
+  //     longitude: 108.2199,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0341,
+  //     longitude: 108.2208,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0341,
+  //     longitude: 108.2217,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0344,
+  //     longitude: 108.21901,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0361,
+  //     longitude: 108.2215,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
+  // {
+  //   location: {
+  //     latitude: 16.0349,
+  //     longitude: 108.2228,
+  //   },
+  //   area: 'Đại học Đông Á - Kiến trúc Đà Nẵng',
+  // },
   // Đại học Ngoại ngữ Đà Nẵng
   {
     location: {

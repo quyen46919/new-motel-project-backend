@@ -9,12 +9,17 @@ const postMotel = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(motel);
 });
 
-
 const queryMotels = catchAsync(async (req, res) => {
-  console.log("In controller")
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await motelService.queryMotels(filter, options);
+  res.status(httpStatus.OK).send(result);
+});
+
+const adminQueryMotels = catchAsync(async (req, res) => {
+  const filter = pick(req.query, ['name', 'role']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await motelService.adminQueryMotels(filter, options);
   res.status(httpStatus.OK).send(result);
 });
 
@@ -40,6 +45,7 @@ const deleteMotel = catchAsync(async (req, res) => {
 });
 
 const updateMotelStatus = catchAsync(async (req, res) => {
+  // res.send('ok');
   const motel = await motelService.updateMotelStatus(req.params.motelId, req.body);
   res.send(motel);
 });
@@ -62,5 +68,6 @@ module.exports = {
   deleteMotel,
   updateMotelStatus,
   updateMotelInfo,
-  predictDistance
+  predictDistance,
+  adminQueryMotels,
 };

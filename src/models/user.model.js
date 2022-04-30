@@ -27,12 +27,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 8,
-      validate(value) {
-        if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-          throw new Error('Password must contain at least one letter and one number');
-        }
-      },
+      minlength: 6,
+      // validate(value) {
+      //   if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
+      //     throw new Error('Password must contain at least one letter and one number');
+      //   }
+      // },
       private: true, // used by the toJSON plugin
     },
     role: {
@@ -59,20 +59,24 @@ const userSchema = mongoose.Schema(
     },
     age: {
       type: Number,
-      default: 20
+      default: 18,
     },
     address: {
       type: String,
-      default: ''
+      default: '',
     },
-    school: {
+    job: {
       type: String,
-      default: ''
+      default: 'Người thuê trọ',
     },
-    SchoolId: {
+    // dateOfBirth: {
+    //   type: String,
+    //   default: '',
+    // },
+    schoolId: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   {
     timestamps: true,
