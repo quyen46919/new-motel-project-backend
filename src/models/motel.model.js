@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON, paginate } = require('./plugins');
+const { toJSON } = require('./plugins');
 
 const CounterSchema = new mongoose.Schema({
   _id: { type: String, required: true },
@@ -113,6 +113,14 @@ const motelSchema = new mongoose.Schema({
       required: true,
     },
   },
+  rating: {
+    type: Array,
+    required: true,
+  },
+  evaluates: {
+    type: Array,
+    required: true,
+  },
   expireAt: {
     type: Date,
     default: '',
@@ -140,7 +148,7 @@ const motelSchema = new mongoose.Schema({
   },
   visibility: {
     type: String,
-    enum: ['Đang hiển thị', 'Đã ẩn đi'],
+    enum: ['Đang hiển thị', 'Đang có người liên hệ', 'Đã ẩn đi'],
     default: 'Đang hiển thị',
   },
   visibilityMessage: {
@@ -154,7 +162,7 @@ const motelSchema = new mongoose.Schema({
 });
 
 motelSchema.plugin(toJSON);
-motelSchema.plugin(paginate);
+motelSchema.index({ address: 'text', bossName: 'text' });
 
 motelSchema.statics.isMotelTaken = async function (category, bossName, bossPhone, address, price) {
   const motel = await this.findOne({
@@ -191,11 +199,22 @@ motelSchema.statics.isValidMotel = async function (ownerId, motelId) {
 
 motelSchema.pre('save', function (next) {
   const doc = this;
-  counter.findByIdAndUpdate({ _id: 'motelId' }, { $inc: { seq: 1 } }, { new: true, upsert: true }, function (error, count) {
-    if (error) return next(error);
-    doc.counter = count.seq;
-    next();
-  });
+  if (!doc.counter) {
+    counter.findByIdAndUpdate(
+      { _id: 'motelId' },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true },
+      function (error, count) {
+        if (error) return next(error);
+        doc.counter = count.seq;
+        next();
+      }
+    );
+  }
+  next();
 });
 
-module.exports = mongoose.model('Motel', motelSchema);
+const Motel = mongoose.model('Motel', motelSchema);
+Motel.createIndexes({ address: 'text', bossName: 'text' });
+
+module.exports = Motel;

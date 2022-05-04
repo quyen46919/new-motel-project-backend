@@ -10,9 +10,10 @@ const postMotel = catchAsync(async (req, res) => {
 });
 
 const queryMotels = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await motelService.queryMotels(filter, options);
+  // const filter = pick(req.query, ['name', 'role']);
+  // const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  // const result = await motelService.queryMotels(filter, options);
+  const result = await motelService.paginationTest(req.query);
   res.status(httpStatus.OK).send(result);
 });
 
@@ -45,8 +46,7 @@ const deleteMotel = catchAsync(async (req, res) => {
 });
 
 const updateMotelStatus = catchAsync(async (req, res) => {
-  // res.send('ok');
-  const motel = await motelService.updateMotelStatus(req.params.motelId, req.body);
+  const motel = await motelService.updateMotelById(req.params.motelId, req.body);
   res.send(motel);
 });
 
@@ -60,6 +60,12 @@ const predictDistance = catchAsync(async (req, res) => {
   res.send(predictResult);
 });
 
+const recommendMotel = catchAsync(async (req, res) => {
+  const { ratings } = req.body;
+  const recommendRes = await motelService.recommendMotel(ratings);
+  res.send(recommendRes);
+});
+
 module.exports = {
   postMotel,
   queryMotels,
@@ -70,4 +76,5 @@ module.exports = {
   updateMotelInfo,
   predictDistance,
   adminQueryMotels,
+  recommendMotel,
 };

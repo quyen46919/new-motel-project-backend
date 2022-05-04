@@ -13,11 +13,12 @@ router
   .delete(auth(), validate(motelValidation.deleteMotel), motelController.deleteMotel);
 
 router.route('/predict-distance').get(validate(motelValidation.predictDistance), motelController.predictDistance);
+router.route('/recommend').post(validate(motelValidation.recommendMotel), motelController.recommendMotel);
 
 router
   .route('/:motelId')
   .get(validate(motelValidation.getMotel), motelController.getMotel)
-  .patch(auth('updateMotels'), validate(motelValidation.updateMotelStatus), motelController.updateMotelStatus);
+  .patch(validate(motelValidation.updateMotelVisibility), motelController.updateMotelStatus);
 
 router.route('/user/:userId').get(validate(motelValidation.getMotelsByUserId), motelController.getMotelsByUserId);
 

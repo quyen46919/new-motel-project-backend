@@ -37,6 +37,8 @@ const postMotel = {
     checkBed: Joi.boolean(),
     checkBoard: Joi.boolean(),
 
+    rating: Joi.array().required(),
+    evaluates: Joi.array().required(),
     imageList: Joi.array().required(),
     location: Joi.object({
       lat: Joi.number().required(),
@@ -46,37 +48,14 @@ const postMotel = {
 };
 
 const queryMotels = {
-  query: Joi.object().keys({
-    address: Joi.string(),
-    bossName: Joi.string(),
-    acreage: Joi.string(),
-    nearSchool: Joi.string(),
-
-    checkedAlarm: Joi.boolean(),
-    checkedPet: Joi.boolean(),
-    checkedFan: Joi.boolean(),
-    checkedCarPark: Joi.boolean(),
-    checkedConditioner: Joi.boolean(),
-    checkedGarbageBin: Joi.boolean(),
-    checkedKitchen: Joi.boolean(),
-    checkedToilet: Joi.boolean(),
-    checkedWifi: Joi.boolean(),
-    checkedDryingGround: Joi.boolean(),
-    checkedWaterHeater: Joi.boolean(),
-    checkedBed: Joi.boolean(),
-    checkedFridge: Joi.boolean(),
-    checkedHospital: Joi.boolean(),
-    checkedTienSon: Joi.boolean(),
-    checkedMarket: Joi.boolean(),
-    checkedSupermarket: Joi.boolean(),
-    checkedWashingMachine: Joi.boolean(),
-    checkBed: Joi.boolean(),
-    checkBoard: Joi.boolean(),
-
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
-  }),
+  query: Joi.object()
+    .keys({
+      sortBy: Joi.string(),
+      limit: Joi.number().integer(),
+      page: Joi.number().integer(),
+      search: Joi.string().allow(''),
+    })
+    .unknown(true),
 };
 
 const getMotel = {
@@ -113,6 +92,29 @@ const updateMotelStatus = {
       _destroy: Joi.boolean().default(false),
     })
     .min(1),
+};
+
+const updateMotelVisibility = {
+  params: Joi.object().keys({
+    motelId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      visibility: Joi.string().valid('Đang hiển thị', 'Đã ẩn đi').required(),
+      visibilityMessage: Joi.when('visibility', {
+        is: Joi.string().valid('Đã ẩn đi'),
+        then: Joi.string().min(5).required(),
+        otherwise: Joi.string().allow(''),
+      }).allow(null),
+      expireAt: Joi.date().allow(''),
+    })
+    .min(1),
+};
+
+const recommendMotel = {
+  body: Joi.object().keys({
+    ratings: Joi.array().items(Joi.number()).required(),
+  }),
 };
 
 const updateMotelInfo = {
@@ -162,4 +164,6 @@ module.exports = {
   updateMotelInfo,
   getMotelsByUserId,
   predictDistance,
+  updateMotelVisibility,
+  recommendMotel,
 };
