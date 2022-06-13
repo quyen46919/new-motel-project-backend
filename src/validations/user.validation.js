@@ -59,7 +59,9 @@ const updateUserInfo = {
       schoolId: Joi.string().allow(''),
       job: Joi.string().allow(''),
       dateOfBirth: Joi.date().allow(''),
-      phone: Joi.string().allow(''),
+      phone: Joi.string()
+        .regex(/(84|0[3|5|7|8|9])+([0-9]{8})/)
+        .allow(''),
       oldPassword: Joi.string().custom(password),
       password: Joi.string().custom(password),
     })

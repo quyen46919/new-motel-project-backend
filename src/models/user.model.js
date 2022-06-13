@@ -77,6 +77,14 @@ const userSchema = mongoose.Schema(
       type: String,
       default: '',
     },
+    createAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    updateAt: {
+      type: Date,
+      default: '',
+    },
   },
   {
     timestamps: true,

@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const motelRoute = require('./motel.route');
 const adminRoute = require('./admin.route');
+const motelRequest = require('./motelRequest.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: '/admin',
     route: adminRoute,
+  },
+  {
+    path: '/motel-request',
+    route: motelRequest,
   },
 ];
 
