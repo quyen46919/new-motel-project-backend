@@ -38,10 +38,21 @@ app.use(mongoSanitize());
 app.use(compression());
 
 // enable cors
+// const corsOptions = {
+//   origin: process.env.CLIENT_URL,
+//   optionsSuccessStatus: 200,
+// };
+const whitelist = ['http://localhost:3000', 'http://localhost:3001', process.env.CLIENT_URL];
 const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 };
+
 app.use(cors(corsOptions));
 // app.options('*', cors());
 
