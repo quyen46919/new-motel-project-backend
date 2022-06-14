@@ -44,6 +44,18 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const adminUpdateUserStatus = catchAsync(async (req, res) => {
+  const user = await userService.adminUpdateUserStatus(req.params.userId, req.body);
+  res.send(user);
+});
+
+const adminGetAllUsers = catchAsync(async (req, res) => {
+  const filter = pick(req.query, ['name', 'role']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await userService.adminQueryUser(filter, options);
+  res.send(result);
+});
+
 module.exports = {
   createUser,
   getUsers,
@@ -52,4 +64,6 @@ module.exports = {
   deleteUser,
   updateUserInfo,
   changePassword,
+  adminUpdateUserStatus,
+  adminGetAllUsers,
 };

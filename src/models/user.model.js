@@ -69,10 +69,14 @@ const userSchema = mongoose.Schema(
       type: String,
       default: 'Người thuê trọ',
     },
-    // dateOfBirth: {
-    //   type: String,
-    //   default: '',
-    // },
+    status: {
+      type: Number,
+      // 0 --> unactive
+      // 1 --> actived
+      // 2 --> blocked
+      enum: [0, 1, 2],
+      default: 1,
+    },
     schoolId: {
       type: String,
       default: '',

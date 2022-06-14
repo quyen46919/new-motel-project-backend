@@ -72,24 +72,27 @@ const postMotel = async (motelBody) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryMotels = async (filter, options) => {
-  const motels = await Motel.paginate(filter, options);
+// const queryMotels = async (filter, options) => {
+//   const motels = await Motel.paginate(filter, options);
 
-  // fix this line in future
-  const filteredMotel = motels.results.filter((item) => item._destroy === false && item.status === 'Đã duyệt');
-  const verifyMotels = {
-    ...motels,
-    results: filteredMotel,
-    totalResults: filteredMotel.length,
-  };
+//   // fix this line in future
+//   const filteredMotel = motels.results.filter((item) => item._destroy === false && item.status === 'Đã duyệt');
+//   const verifyMotels = {
+//     ...motels,
+//     results: filteredMotel,
+//     totalResults: filteredMotel.length,
+//   };
 
-  return verifyMotels;
-};
+//   return verifyMotels;
+// };
 
-const paginationTest = async (query) => {
+const queryAndPagination = async (query) => {
   const features = new Features(Motel.find(), query).paginating().sorting().searching().filtering();
   const motelQuery = await features.query;
-  const results = await Promise.allSettled([motelQuery, Motel.countDocuments()]);
+  const results = await Promise.allSettled([
+    motelQuery,
+    Motel.countDocuments({ status: 'Đã duyệt', visibility: 'Đang hiển thị' }),
+  ]);
 
   const motels = results[0].status === 'fulfilled' ? results[0].value : [];
   const countMotel = results[1].status === 'fulfilled' ? results[1].value : 0;
@@ -98,9 +101,12 @@ const paginationTest = async (query) => {
 };
 
 const adminQueryMotels = async (query) => {
+  console.log(query);
   const features = new Features(Motel.find(), query).paginating().sorting().searching().filtering();
   const motelQuery = await features.query;
-  const results = await Promise.allSettled([motelQuery, Motel.countDocuments()]);
+  const count = new Features(Motel.countDocuments(), query).countingByStatus();
+  const motelCountTest = await count.query;
+  const results = await Promise.allSettled([motelQuery, motelCountTest]);
 
   const motels = results[0].status === 'fulfilled' ? results[0].value : [];
   const countMotel = results[1].status === 'fulfilled' ? results[1].value : 0;
@@ -238,7 +244,7 @@ const recommendMotel = async (ratings) => {
 
   const n = Object.keys(classes).length;
   const thetas = linearRegression(J, n);
-  const error = Math.sqrt(Math.sqrt(J(thetas)));
+  // const error = Math.sqrt(Math.sqrt(J(thetas)));
 
   predictions = motels
     .map((motel, i) => ({
@@ -338,97 +344,97 @@ const recommendMotel = async (ratings) => {
 // };
 // // predictNearSchool(16.047558433936185, 108.24184992344304);
 
-const trainDistanceModel = () => {
-  const universityNames = [
-    'Đại học Đông Á - Kiến trúc Đà Nẵng',
-    'Đại học Ngoại ngữ Đà Nẵng',
-    'Đại học Sư phạm Đà Nẵng',
-    // 'Đại học Kinh tế Đà Nẵng',
-    // 'Đại học GreenWich Đà Nẵng',
-    // 'Đại học FPT',
-    // 'Đại học Bách khoa Đà Nẵng',
-    // 'Đại học Duy Tân',
-    // 'Đại học Kỹ thuật Y dược Đà Nẵng',
-    // 'Đại học Sư phạm Kỹ thuật Đà Nẵng',
-    // '',
-  ];
+// const trainDistanceModel = () => {
+//   const universityNames = [
+//     'Đại học Đông Á - Kiến trúc Đà Nẵng',
+//     'Đại học Ngoại ngữ Đà Nẵng',
+//     'Đại học Sư phạm Đà Nẵng',
+//     // 'Đại học Kinh tế Đà Nẵng',
+//     // 'Đại học GreenWich Đà Nẵng',
+//     // 'Đại học FPT',
+//     // 'Đại học Bách khoa Đà Nẵng',
+//     // 'Đại học Duy Tân',
+//     // 'Đại học Kỹ thuật Y dược Đà Nẵng',
+//     // 'Đại học Sư phạm Kỹ thuật Đà Nẵng',
+//     // '',
+//   ];
 
-  const universities = [];
-  const locations = [];
+//   const universities = [];
+//   const locations = [];
 
-  // eslint-disable-next-line array-callback-return
-  distanceSampleData.map((location) => {
-    locations.push((location.location.latitude + 90) * 180 + location.location.longitude);
-    // locations.push(location.location.latitude + location.location.longitude);
-    universities.push(universityNames.indexOf(location.area));
-  });
+//   // eslint-disable-next-line array-callback-return
+//   distanceSampleData.map((location) => {
+//     locations.push((location.location.latitude + 90) * 180 + location.location.longitude);
+//     // locations.push(location.location.latitude + location.location.longitude);
+//     universities.push(universityNames.indexOf(location.area));
+//   });
 
-  const xs = tf.tensor1d(locations);
-  // xs.print();
-  const univeristyTensor = tf.tensor1d(universities, 'int32');
+//   const xs = tf.tensor1d(locations);
+//   // xs.print();
+//   const univeristyTensor = tf.tensor1d(universities, 'int32');
 
-  // oneHot
-  const ys = tf.oneHot(univeristyTensor, 3);
-  // ys.print();
+//   // oneHot
+//   const ys = tf.oneHot(univeristyTensor, 3);
+//   // ys.print();
 
-  // create model
-  const model = tf.sequential();
-  const hiddenLayer = tf.layers.dense({
-    units: 3,
-    activation: 'sigmoid',
-    inputDim: 1,
-  });
+//   // create model
+//   const model = tf.sequential();
+//   const hiddenLayer = tf.layers.dense({
+//     units: 3,
+//     activation: 'sigmoid',
+//     inputDim: 1,
+//   });
 
-  const ouputLayer = tf.layers.dense({
-    units: 3,
-    activation: 'softmax',
-  });
+//   const ouputLayer = tf.layers.dense({
+//     units: 3,
+//     activation: 'softmax',
+//   });
 
-  model.add(hiddenLayer);
-  model.add(ouputLayer);
+//   model.add(hiddenLayer);
+//   model.add(ouputLayer);
 
-  // model.save('file://./predict-distance-model');
+//   // model.save('file://./predict-distance-model');
 
-  model.compile({
-    optimizer: tf.train.sgd(0.3),
-    loss: 'categoricalCrossentropy',
-    // loss: 'categoricalCrossentropy'
-  });
+//   model.compile({
+//     optimizer: tf.train.sgd(0.3),
+//     loss: 'categoricalCrossentropy',
+//     // loss: 'categoricalCrossentropy'
+//   });
 
-  // train model
-  async function train() {
-    const options = {
-      epochs: 10000,
-      validationSplit: 0.3,
-      shuffle: true,
-    };
-    const res = await model.fit(xs, ys, options);
-    model.save('file://./predict-distance-model2');
-    return res;
-  }
+//   // train model
+//   async function train() {
+//     const options = {
+//       epochs: 10000,
+//       validationSplit: 0.3,
+//       shuffle: true,
+//     };
+//     const res = await model.fit(xs, ys, options);
+//     model.save('file://./predict-distance-model2');
+//     return res;
+//   }
 
-  train()
-    .then(() => {
-      const location = {
-        latitude: 16.047558433936185,
-        longitude: 108.24184992344304,
-      };
+//   train()
+//     .then(() => {
+//       const location = {
+//         latitude: 16.047558433936185,
+//         longitude: 108.24184992344304,
+//       };
 
-      const inputTensor = tf.tensor1d([(location.latitude + 90) * 180 + location.longitude]);
-      // const inputTensor = tf.tensor1d([location.latitude + location.longitude]);
-      const predictRes = model.predict(inputTensor).dataSync();
-      // eslint-disable-next-line no-console
-      console.log('predictRes', predictRes);
+//       const inputTensor = tf.tensor1d([(location.latitude + 90) * 180 + location.longitude]);
+//       // const inputTensor = tf.tensor1d([location.latitude + location.longitude]);
+//       const predictRes = model.predict(inputTensor).dataSync();
+//       // eslint-disable-next-line no-console
+//       console.log('predictRes', predictRes);
 
-      // let max = predictRes.argMax().dataSync()[0];
-      // console.log('max', max);
+//       // let max = predictRes.argMax().dataSync()[0];
+//       // console.log('max', max);
 
-      // console.log('vị trí này gần khu vực', universityNames[max]);
-      return predictRes;
-    })
-    // eslint-disable-next-line no-console
-    .catch((err) => console.log(err));
-};
+//       // console.log('vị trí này gần khu vực', universityNames[max]);
+//       return predictRes;
+//     })
+//     // eslint-disable-next-line no-console
+//     .catch((err) => console.log(err));
+// };
 
 // trainDistanceModel();
 
@@ -437,10 +443,10 @@ const predictDistance = async () => {
     const trainedModel = await tf.loadLayersModel(handler);
     // const x = JSON.parse(trainedModel);
 
-    const UDAlocation = {
-      latitude: 16.0344,
-      longitude: 108.2114,
-    };
+    // const UDAlocation = {
+    //   latitude: 16.0344,
+    //   longitude: 108.2114,
+    // };
 
     const DuyTanLocation = {
       latitude: 16.0637,
@@ -461,16 +467,14 @@ const predictDistance = async () => {
 
 module.exports = {
   postMotel,
-  queryMotels,
+  queryAndPagination,
   getMotelById,
   getMotelByEmail,
   updateMotelById,
   deleteMotelById,
   updateMotelStatus,
-  // updateMotelInfo,
   getMotelByPostedUserId,
   predictDistance,
   adminQueryMotels,
-  paginationTest,
   recommendMotel,
 };

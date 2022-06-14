@@ -122,6 +122,28 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+/**
+ * Delete user by id
+ * @param {ObjectId} userId
+ * @param {Object} updateBody
+ * @returns {Promise<User>}
+ */
+const adminUpdateUserStatus = async (userId, updateBody) => {
+  const user = await getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Tài khoản không tồn tại');
+  }
+
+  Object.assign(user, updateBody);
+  await user.save();
+  return user;
+};
+
+const adminQueryUser = async (filter, options) => {
+  const users = await User.paginate(filter, options);
+  return users;
+};
+
 module.exports = {
   createUser,
   queryUsers,
@@ -131,4 +153,6 @@ module.exports = {
   updateUserInfo,
   deleteUserById,
   // changePassword,
+  adminUpdateUserStatus,
+  adminQueryUser,
 };

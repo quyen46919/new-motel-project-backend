@@ -13,6 +13,9 @@ const { tokenTypes } = require('../config/tokens');
  */
 const loginUserWithEmailAndPassword = async (email, password) => {
   const user = await userService.getUserByEmail(email);
+  if (user.status === 2) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Tài khoản đã bị khóa');
+  }
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Tài khoản hoặc mật khẩu không chính xác');
   }

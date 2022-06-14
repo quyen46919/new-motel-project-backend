@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 const { toJSON } = require('./plugins');
-
-const CounterSchema = new mongoose.Schema({
-  _id: { type: String, required: true },
-  seq: { type: Number, default: 0 },
-});
-const counter = mongoose.model('counter', CounterSchema);
 
 const motelSchema = new mongoose.Schema({
   createUserId: {
@@ -161,6 +156,7 @@ const motelSchema = new mongoose.Schema({
   },
 });
 
+motelSchema.plugin(AutoIncrement, { id: 'order_seq', inc_field: 'counter' });
 motelSchema.plugin(toJSON);
 motelSchema.index({ address: 'text', bossName: 'text' });
 
@@ -196,23 +192,6 @@ motelSchema.statics.isValidMotel = async function (ownerId, motelId) {
   });
   return motel;
 };
-
-motelSchema.pre('save', function (next) {
-  const doc = this;
-  if (!doc.counter) {
-    counter.findByIdAndUpdate(
-      { _id: 'motelId' },
-      { $inc: { seq: 1 } },
-      { new: true, upsert: true },
-      function (error, count) {
-        if (error) return next(error);
-        doc.counter = count.seq;
-        next();
-      }
-    );
-  }
-  next();
-});
 
 const Motel = mongoose.model('Motel', motelSchema);
 Motel.createIndexes({ address: 'text', bossName: 'text' });

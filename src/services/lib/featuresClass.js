@@ -31,9 +31,6 @@ module.exports = function APIfeatures(query, queryString) {
     }
     return this;
   };
-  // this.query = Products.find().find({
-  //     $text: { $search: search }
-  //  }).limit(limit).skip(skip).sort(sort)
 
   this.filtering = () => {
     const queryObj = { ...this.queryString };
@@ -45,6 +42,21 @@ module.exports = function APIfeatures(query, queryString) {
     queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, (match) => `$${match}`);
 
     this.query = this.query.find(JSON.parse(queryStr));
+    return this;
+  };
+
+  this.countingByStatus = () => {
+    const { status } = this.queryString;
+    // console.log(status);
+    if (status) {
+      let queryStr = JSON.stringify(status);
+      // console.log(queryStr);
+      queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, (match) => `$${match}`);
+      // console.log(queryStr);
+      this.query = this.query.countDocuments({
+        status: JSON.parse(queryStr),
+      });
+    }
     return this;
   };
 
