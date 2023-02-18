@@ -194,6 +194,6 @@ motelSchema.statics.isValidMotel = async function (ownerId, motelId) {
 };
 
 const Motel = mongoose.model('Motel', motelSchema);
-Motel.createIndexes({ address: 'text', bossName: 'text' });
+// Motel.createIndexes({ address: 'text', bossName: 'text' });
 
 module.exports = Motel;
