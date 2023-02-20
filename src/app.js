@@ -42,19 +42,19 @@ app.use(compression());
 //   origin: process.env.CLIENT_URL,
 //   optionsSuccessStatus: 200,
 // };
-const whitelist = ['http://localhost:3000', 'http://localhost:3001', process.env.CLIENT_URL];
-const corsOptions = {
-  origin(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
+// const whitelist = ['http://localhost:3000', 'http://localhost:3001', process.env.CLIENT_URL];
+// const corsOptions = {
+//   origin(origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+// };
 
-app.use(cors(corsOptions));
-// app.options('*', cors());
+// app.use(cors(corsOptions));
+app.options('*', cors());
 
 // jwt authentication
 app.use(passport.initialize());
