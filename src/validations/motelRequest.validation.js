@@ -2,14 +2,12 @@ const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
 const queryMotelRequests = {
-  query: Joi.object()
-    .keys({
-      sortBy: Joi.string(),
-      limit: Joi.number().integer(),
-      page: Joi.number().integer(),
-      search: Joi.string().allow(''),
-    })
-    .unknown(true),
+  query: Joi.object().keys({
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+    search: Joi.string().allow(''),
+  }),
 };
 
 const createNewMotelRequest = {
@@ -31,8 +29,12 @@ const updateMotelRequest = {
   body: Joi.object()
     .keys({
       adminId: Joi.string().custom(objectId).required(),
+      motelId: Joi.string().custom(objectId),
       adminMessage: Joi.string().min(1).max(1000).required(),
       status: Joi.number().valid(0, 1, 2).required(),
+      visibility: Joi.string().min(1).max(1000),
+      visibilityMessage: Joi.string().min(1).max(1000),
+      requestType: Joi.string().valid('Đăng ký đặt phòng', 'Báo trọ đã có người thuê', 'Báo thông tin sai'),
     })
     .min(3),
 };

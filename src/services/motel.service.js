@@ -71,24 +71,27 @@ const postMotel = async (motelBody) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryMotels = async (filter, options) => {
-  const motels = await Motel.paginate(filter, options);
+// const queryMotels = async (filter, options) => {
+//   const motels = await Motel.paginate(filter, options);
 
-  // fix this line in future
-  const filteredMotel = motels.results.filter((item) => item._destroy === false && item.status === 'Đã duyệt');
-  const verifyMotels = {
-    ...motels,
-    results: filteredMotel,
-    totalResults: filteredMotel.length,
-  };
+//   // fix this line in future
+//   const filteredMotel = motels.results.filter((item) => item._destroy === false && item.status === 'Đã duyệt');
+//   const verifyMotels = {
+//     ...motels,
+//     results: filteredMotel,
+//     totalResults: filteredMotel.length,
+//   };
 
-  return verifyMotels;
-};
+//   return verifyMotels;
+// };
 
-const paginationTest = async (query) => {
+const queryAndPagination = async (query) => {
   const features = new Features(Motel.find(), query).paginating().sorting().searching().filtering();
   const motelQuery = await features.query;
-  const results = await Promise.allSettled([motelQuery, Motel.countDocuments()]);
+  const results = await Promise.allSettled([
+    motelQuery,
+    Motel.countDocuments({ status: 'Đã duyệt', visibility: 'Đang hiển thị' }),
+  ]);
 
   const motels = results[0].status === 'fulfilled' ? results[0].value : [];
   const countMotel = results[1].status === 'fulfilled' ? results[1].value : 0;
@@ -99,7 +102,9 @@ const paginationTest = async (query) => {
 const adminQueryMotels = async (query) => {
   const features = new Features(Motel.find(), query).paginating().sorting().searching().filtering();
   const motelQuery = await features.query;
-  const results = await Promise.allSettled([motelQuery, Motel.countDocuments()]);
+  const count = new Features(Motel.countDocuments(), query).countingByStatus();
+  const motelCountTest = await count.query;
+  const results = await Promise.allSettled([motelQuery, motelCountTest]);
 
   const motels = results[0].status === 'fulfilled' ? results[0].value : [];
   const countMotel = results[1].status === 'fulfilled' ? results[1].value : 0;
@@ -436,10 +441,10 @@ const recommendMotel = async (ratings) => {
 //     const trainedModel = await tf.loadLayersModel(handler);
 //     // const x = JSON.parse(trainedModel);
 
-//     const UDAlocation = {
-//       latitude: 16.0344,
-//       longitude: 108.2114,
-//     };
+// const UDAlocation = {
+//   latitude: 16.0344,
+//   longitude: 108.2114,
+// };
 
 //     const DuyTanLocation = {
 //       latitude: 16.0637,
@@ -460,16 +465,14 @@ const recommendMotel = async (ratings) => {
 
 module.exports = {
   postMotel,
-  queryMotels,
+  queryAndPagination,
   getMotelById,
   getMotelByEmail,
   updateMotelById,
   deleteMotelById,
   updateMotelStatus,
-  // updateMotelInfo,
   getMotelByPostedUserId,
   // predictDistance,
   adminQueryMotels,
-  paginationTest,
   recommendMotel,
 };

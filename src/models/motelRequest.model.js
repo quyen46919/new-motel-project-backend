@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const { toJSON } = require('./plugins');
 
+const today = new Date();
+today.setHours(today.getHours() + 7);
+
 const motelRequired = mongoose.Schema(
   {
     messageType: {
@@ -37,11 +40,12 @@ const motelRequired = mongoose.Schema(
     },
     status: {
       type: Number,
+      enum: [0, 1, 2],
       default: 0,
     },
     createAt: {
       type: Date,
-      default: Date.now(),
+      default: today,
     },
     updateAt: {
       type: Date,

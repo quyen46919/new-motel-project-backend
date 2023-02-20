@@ -1,5 +1,4 @@
 const httpStatus = require('http-status');
-const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { motelService } = require('../services');
@@ -10,17 +9,12 @@ const postMotel = catchAsync(async (req, res) => {
 });
 
 const queryMotels = catchAsync(async (req, res) => {
-  // const filter = pick(req.query, ['name', 'role']);
-  // const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  // const result = await motelService.queryMotels(filter, options);
-  const result = await motelService.paginationTest(req.query);
+  const result = await motelService.queryAndPagination(req.query);
   res.status(httpStatus.OK).send(result);
 });
 
 const adminQueryMotels = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await motelService.adminQueryMotels(filter, options);
+  const result = await motelService.adminQueryMotels(req.query);
   res.status(httpStatus.OK).send(result);
 });
 
@@ -45,7 +39,7 @@ const deleteMotel = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-const updateMotelStatus = catchAsync(async (req, res) => {
+const adminUpdateMotelStatus = catchAsync(async (req, res) => {
   const motel = await motelService.updateMotelById(req.params.motelId, req.body);
   res.send(motel);
 });
@@ -72,7 +66,7 @@ module.exports = {
   getMotel,
   getMotelsByUserId,
   deleteMotel,
-  updateMotelStatus,
+  adminUpdateMotelStatus,
   updateMotelInfo,
   predictDistance,
   adminQueryMotels,

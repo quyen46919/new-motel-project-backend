@@ -56,11 +56,11 @@ const paginate = (schema) => {
       const [totalResults, results] = values;
       const totalPages = Math.ceil(totalResults / limit);
       const result = {
-        results,
         page,
         limit,
         totalPages,
         totalResults,
+        results,
       };
       return Promise.resolve(result);
     });
