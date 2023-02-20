@@ -9,7 +9,6 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<MotelRequest>}
  */
 const getAllMotelRequest = async (params) => {
-  console.log(params);
   const page = params.page * 1 || 1;
   const limit = params.limit * 1 || 10;
   const skip = limit * (page - 1);

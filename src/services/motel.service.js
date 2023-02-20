@@ -5,17 +5,16 @@
 /* eslint-disable no-param-reassign */
 const httpStatus = require('http-status');
 const mongoose = require('mongoose');
-const tf = require('@tensorflow/tfjs-node');
-const TeachableMachine = require('@sashido/teachablemachine-node');
 const { Motel } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { distanceSampleData } = require('../utils/predictDistance');
-// const features = require('./lib/features');
 const Features = require('./lib/featuresClass');
 const linearRegression = require('./lib/linear-regression');
+// const tf = require('@tensorflow/tfjs-node');
+// const TeachableMachine = require('@sashido/teachablemachine-node');
+// const { distanceSampleData } = require('../utils/predictDistance');
+// const features = require('./lib/features');
 // const checkValidImages = require('./lib/checkValidImage');
-
-const handler = tf.io.fileSystem('./predict-distance-model2/model.json');
+// const handler = tf.io.fileSystem('./predict-distance-model2/model.json');
 
 /**
  * Create a motel
@@ -23,38 +22,38 @@ const handler = tf.io.fileSystem('./predict-distance-model2/model.json');
  * @returns {Promise<Motel>}
  */
 const postMotel = async (motelBody) => {
-  const model = new TeachableMachine({
-    modelUrl: 'https://teachablemachine.withgoogle.com/models/MsdmCLpKI/',
-  });
+  // const model = new TeachableMachine({
+  //   modelUrl: 'https://teachablemachine.withgoogle.com/models/MsdmCLpKI/',
+  // });
 
-  const setCriteria = new Set();
-  const x = motelBody.imageList.map(async (image) => {
-    await model
-      .classify({
-        imageUrl: image,
-      })
-      .then((predictions) => {
-        const returnValue = predictions.filter((criteria) => criteria.score > 0.8);
-        // console.log('returnValue =', returnValue);
-        returnValue.map((criteria) => setCriteria.add(criteria.class));
-      })
-      .catch(() => {
-        throw new Error('Somethings wrong!');
-      });
-  });
-  await Promise.allSettled(x)
-    .then(() => {
-      const array = Array.from(setCriteria);
-      // console.log('array =', array);
-      const filteredArray = array.filter((criteria) => criteria === 'banList');
-      if (filteredArray.length > 0) {
-        motelBody.status = 'Đã từ chối phê duyệt';
-        motelBody.statusMessage = 'Thông tin trọ có chứa hình ảnh không phù hợp';
-      }
-    })
-    .catch(() => {
-      throw new Error('Somethings wrong!');
-    });
+  // const setCriteria = new Set();
+  // const x = motelBody.imageList.map(async (image) => {
+  //   await model
+  //     .classify({
+  //       imageUrl: image,
+  //     })
+  //     .then((predictions) => {
+  //       const returnValue = predictions.filter((criteria) => criteria.score > 0.8);
+  //       // console.log('returnValue =', returnValue);
+  //       returnValue.map((criteria) => setCriteria.add(criteria.class));
+  //     })
+  //     .catch(() => {
+  //       throw new Error('Somethings wrong!');
+  //     });
+  // });
+  // await Promise.allSettled(x)
+  //   .then(() => {
+  //     const array = Array.from(setCriteria);
+  //     // console.log('array =', array);
+  //     const filteredArray = array.filter((criteria) => criteria === 'banList');
+  //     if (filteredArray.length > 0) {
+  //       motelBody.status = 'Đã từ chối phê duyệt';
+  //       motelBody.statusMessage = 'Thông tin trọ có chứa hình ảnh không phù hợp';
+  //     }
+  //   })
+  //   .catch(() => {
+  //     throw new Error('Somethings wrong!');
+  //   });
   return Motel.create(motelBody);
 
   // if (check) {
@@ -101,7 +100,6 @@ const queryAndPagination = async (query) => {
 };
 
 const adminQueryMotels = async (query) => {
-  console.log(query);
   const features = new Features(Motel.find(), query).paginating().sorting().searching().filtering();
   const motelQuery = await features.query;
   const count = new Features(Motel.countDocuments(), query).countingByStatus();
@@ -438,30 +436,30 @@ const recommendMotel = async (ratings) => {
 
 // trainDistanceModel();
 
-const predictDistance = async () => {
-  try {
-    const trainedModel = await tf.loadLayersModel(handler);
-    // const x = JSON.parse(trainedModel);
+// const predictDistance = async () => {
+//   try {
+//     const trainedModel = await tf.loadLayersModel(handler);
+//     // const x = JSON.parse(trainedModel);
 
-    // const UDAlocation = {
-    //   latitude: 16.0344,
-    //   longitude: 108.2114,
-    // };
+// const UDAlocation = {
+//   latitude: 16.0344,
+//   longitude: 108.2114,
+// };
 
-    const DuyTanLocation = {
-      latitude: 16.0637,
-      longitude: 108.2099,
-    };
+//     const DuyTanLocation = {
+//       latitude: 16.0637,
+//       longitude: 108.2099,
+//     };
 
-    const inputTensor = tf.tensor1d([(DuyTanLocation.latitude + 90) * 180 + DuyTanLocation.longitude]);
-    const predictRes = trainedModel.predict(inputTensor).dataSync();
-    // eslint-disable-next-line no-console
-    console.log('predictRes', predictRes);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-  }
-};
+//     const inputTensor = tf.tensor1d([(DuyTanLocation.latitude + 90) * 180 + DuyTanLocation.longitude]);
+//     const predictRes = trainedModel.predict(inputTensor).dataSync();
+//     // eslint-disable-next-line no-console
+//     console.log('predictRes', predictRes);
+//   } catch (err) {
+//     // eslint-disable-next-line no-console
+//     console.log(err);
+//   }
+// };
 
 // predictDistance();
 
@@ -474,7 +472,7 @@ module.exports = {
   deleteMotelById,
   updateMotelStatus,
   getMotelByPostedUserId,
-  predictDistance,
+  // predictDistance,
   adminQueryMotels,
   recommendMotel,
 };
