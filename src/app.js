@@ -53,7 +53,7 @@ app.use(compression());
 //   },
 // };
 
-// app.use(cors(corsOptions));
+app.use(cors());
 app.options('*', cors());
 
 // jwt authentication
